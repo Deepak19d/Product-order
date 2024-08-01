@@ -1,0 +1,49 @@
+<div class="container">
+    <h1>Product Order List</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product Name</th>
+          <th>Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products; let i = index">
+          <td>
+            <select [(ngModel)]="products[i].name" (change)="handleProductChange(i, $event.target.value)">
+              <option value="Choose Product">Choose Product</option>
+              <option *ngFor="let product of availableProducts" [value]="product">{{ product }}</option>
+            </select>
+          </td>
+          <td>
+            <select [(ngModel)]="products[i].quantity" (change)="handleQuantityChange(i, $event.target.value)">
+              <option value="Choose Quantity">Choose Quantity</option>
+              <option *ngFor="let quantity of availableQuantities" [value]="quantity">{{ quantity }}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="addProduct()" [disabled]="products.length >= 8">Add</button>
+    <button (click)="showOrder()">Show Order</button>
+  
+    <div *ngIf="order.length > 0">
+      <h2>Order Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of order">
+            <td>{{ product.name }}</td>
+            <td>{{ product.quantity }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="readOrder()">What is my Order?</button>
+    </div>
+  </div>
+  
